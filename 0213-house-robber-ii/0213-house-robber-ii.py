@@ -15,3 +15,4 @@ class Solution:
         for i in range(3,len(dp2)):
             dp2[i]=max(dp2[i-2]+nums[i],dp2[i-1])
         return max(dp1[-1],dp2[-1])
+    
