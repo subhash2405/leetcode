@@ -1,7 +1,7 @@
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-        # if endWord not in wordList:
-            # return 0
+        if endWord not in wordList:
+            return 0
         queue = []
         visited = [beginWord]
         for word in wordList:
