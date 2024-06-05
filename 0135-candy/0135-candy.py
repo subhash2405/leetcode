@@ -9,7 +9,5 @@ class Solution:
             if ratings[j-1]>ratings[j] and arr[j-1]<=arr[j]:
                 arr[j-1]=arr[j]+1
             j-=1
-        sum=0
-        for i in range(len(arr)):
-            sum+=arr[i]
-        return sum
+        
+        return sum(arr)
