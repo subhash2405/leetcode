@@ -10,8 +10,7 @@ class Solution:
         for i in range(len(temp)):
             heapq.heappush(heap, -count[temp[i]])  
         res = 0
-        importance = n
         while heap:
-            res += importance * (-heapq.heappop(heap))  
-            importance -= 1
+            res += n * (-heapq.heappop(heap))  
+            n -= 1
         return res
