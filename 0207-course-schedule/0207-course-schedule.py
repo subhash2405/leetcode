@@ -1,24 +1,26 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adj = [[] for _ in range(numCourses)]
-        indegree = [0]*numCourses
+        adj_list = [[] for _ in range(numCourses)]
         for [u,v] in prerequisites:
-            adj[v].append(u)
-            indegree[u] += 1
+            adj_list[v].append(u)
+        visited  = [-1]*numCourses
         
-        queue = []
+        def dfs(node):
+            if visited[node] == 0:
+                return False
+            if visited[node] == 1:
+                return True
+            visited[node]=0
+            for ele in adj_list[node]:
+                if not dfs(ele):
+                    return False
+            visited[node] = 1
+            return True
+
         for i in range(numCourses):
-            if indegree[i] == 0:
-                queue.append(i)
-        visited = []
-        while queue:
-            index = queue.pop(0)
-            if index in visited:
-                continue
-            visited.append(index)
+            if visited[i]==-1:
+                if not dfs(i):
+                    return False
+        return True
+
         
-            for node in adj[index]:
-                indegree[node]-=1
-                if indegree[node] == 0:
-                    queue.append(node)
-        return len(visited) == numCourses
