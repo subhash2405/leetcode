@@ -3,20 +3,21 @@ class Solution:
         n=len(graph)
         col=[-1]*n
         for i in range(n):
-            if col[i]!=-1:
-                continue
+            if col[i]==-1:
+                st = [(i,0)]
+                while st:
+                    node,color = st.pop(0)
+                    if col[node]==-1:
+                        col[node] = color
+                        for neigh in graph[node]:
+                            st.append((neigh, (1-color)))
+                    elif col[node]!=color:
+                        return False
 
-            q=deque()
-            q.append((i,0))
-            while q:
-                node,color=q.popleft()
-                if col[node]==-1:
-                    col[node]=color
-                    for nx in graph[node]:
-                        q.append((nx,color^1))
+        return True 
 
 
-                if col[node]!=color:
-                    return False
 
-        return True                        
+
+
+
