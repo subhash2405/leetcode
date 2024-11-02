@@ -1,18 +1,17 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         res = []
-        sub = []
-        self.combine(nums, res, 0, sub)
+
+        def check(temp):
+            if len(temp) == len(nums):
+                res.append(temp[:])
+            
+            for i in nums:
+                if i not in temp:
+                    temp.append(i)
+                    check(temp)
+                    temp.pop()
+        
+        for i in nums:
+            check([i])
         return res
-
-
-    def combine(self, nums, res, index, sub):
-        if index == len(nums):
-            res.append(sub.copy())
-            return 
-        for i in range(len(nums)):
-            if nums[i] not in sub:
-                sub.append(nums[i])
-                self.combine(nums, res, index+1, sub)
-                sub.pop()
-        return 
