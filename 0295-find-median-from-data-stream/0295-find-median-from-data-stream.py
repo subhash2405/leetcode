@@ -2,16 +2,26 @@ import statistics
 class MedianFinder:
 
     def __init__(self):
-        self.arr=[]
-
-    def addNum(self, num: int) -> None:
+        self.minarr = []
+        self.maxarr = []
         
-        self.arr.append(num)
+    def addNum(self, num: int) -> None:
+        if len(self.minarr)==0 or -self.minarr[0]>=num:
+            heapq.heappush(self.minarr, -num)
+        else:
+            heapq.heappush(self.maxarr, num)
+
+        if len(self.minarr)>len(self.maxarr)+1:
+            heapq.heappush(self.maxarr, -heapq.heappop(self.minarr))
+        elif len(self.minarr)<len(self.maxarr):
+            heapq.heappush(self.minarr, -heapq.heappop(self.maxarr))
+                
         
 
     def findMedian(self) -> float:
-        self.arr.sort()
-        return statistics.median(self.arr)
+        if len(self.minarr)==len(self.maxarr):
+            return (self.maxarr[0]-self.minarr[0])/2
+        return -self.minarr[0]
         
 
 
